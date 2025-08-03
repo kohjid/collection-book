@@ -1,3 +1,13 @@
+ああ、大変失礼いたしました！削除機能の確認がまだでしたね。
+話が先に進んでしまい、申し訳ありません。
+
+では、まずキャラクターを削除する機能を完成させましょう。
+
+1. script.js の最終形
+
+現在の script.js の中身を、以下のコードにまるごと置き換えてください。キャラクターの追加と削除、両方の機能が入っています。
+JavaScript
+
 // まず、操作するHTMLの要素を、名前をつけて呼び出せるようにします。
 const nameInput = document.getElementById('char-name');
 const imageInput = document.getElementById('char-image');
@@ -8,16 +18,12 @@ const collectionGrid = document.getElementById('collection-grid');
 // これから集めるキャラクターの情報を入れておくための、空のリスト（配列）を用意します。
 let characters = [];
 
-
-
 // 「追加する」ボタンがクリックされたときの処理
 addButton.addEventListener('click', () => {
-    // フォームに入力された値を取得する
     const name = nameInput.value;
     const imageUrl = imageInput.value;
     const description = descInput.value;
 
-    // 新しいキャラクターのデータを作成
     const newCharacter = {
         name: name,
         image: imageUrl,
@@ -25,11 +31,24 @@ addButton.addEventListener('click', () => {
     };
 
     characters.push(newCharacter);
-
-    // ★★★ 画面を更新するために、この1行を呼び出すだけ ★★★
-    renderCharacters();
+    renderCharacters(); // 画面を更新
 });
 
+// ★ここから削除機能のコード★
+// カードエリアがクリックされたときの処理
+collectionGrid.addEventListener('click', (event) => {
+    // もしクリックされたのが「削除ボタン」なら
+    if (event.target.classList.contains('delete-button')) {
+        // 削除するカードの番号を取得
+        const indexToDelete = event.target.dataset.index;
+
+        // characterリストから、その番号のデータを1つ削除
+        characters.splice(indexToDelete, 1);
+
+        // 最新のリストで画面を再表示
+        renderCharacters();
+    }
+});
 
 // キャラクターのリストを画面に表示する関数
 function renderCharacters() {
@@ -37,19 +56,19 @@ function renderCharacters() {
     collectionGrid.innerHTML = '';
 
     // charactersリストの各キャラクターに対して、カードを1枚ずつ作る
-    characters.forEach(char => {
-        // カードのHTML要素を作成
+    // ★削除機能のため、forEachにindexを追加★
+    characters.forEach((char, index) => {
         const card = document.createElement('div');
-        card.className = 'character-card'; // CSSでデザインするためのクラス名
+        card.className = 'character-card';
 
-        // カードの中身のHTMLを作成
+        // ★削除機能のため、削除ボタンをHTMLに追加★
         card.innerHTML = `
             <img src="${char.image}" alt="${char.name}">
             <h3>${char.name}</h3>
             <p>${char.description}</p>
+            <button class="delete-button" data-index="${index}">削除</button>
         `;
 
-        // 完成したカードを画面のグリッドに追加
         collectionGrid.appendChild(card);
     });
 }
