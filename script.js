@@ -1,4 +1,4 @@
-
+alert('JavaScriptファイルが読み込まれました！');
 // まず、操作するHTMLの要素を、名前をつけて呼び出せるようにします。
 const nameInput = document.getElementById('char-name');
 const imageInput = document.getElementById('char-image');
