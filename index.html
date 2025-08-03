@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>コレクションブック</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>マイ・コレクションブック</h1>
+    </header>
+
+    <main>
+        <section id="add-form-section">
+            <h2>新しいキャラクターを追加</h2>
+            <input type="text" id="char-name" placeholder="キャラクター名">
+            <input type="text" id="char-image" placeholder="画像URL (例: slime.png)">
+            <textarea id="char-desc" placeholder="説明"></textarea>
+            <button id="add-button">追加する</button>
+        </section>
+
+        <section id="collection-section">
+            <h2>コレクション</h2>
+            <div id="collection-grid">
+                </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
