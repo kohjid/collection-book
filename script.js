@@ -24,10 +24,32 @@ addButton.addEventListener('click', () => {
         description: description
     };
 
-    // 作成したキャラクターを、charactersリストに追加
     characters.push(newCharacter);
 
-    // 確認のために、コンソールに表示してみる
-    console.log('キャラクターが追加されました！');
-    console.log(characters);
+    // ★★★ 画面を更新するために、この1行を呼び出すだけ ★★★
+    renderCharacters();
 });
+
+
+// キャラクターのリストを画面に表示する関数
+function renderCharacters() {
+    // まずは表示エリアを空っぽにする
+    collectionGrid.innerHTML = '';
+
+    // charactersリストの各キャラクターに対して、カードを1枚ずつ作る
+    characters.forEach(char => {
+        // カードのHTML要素を作成
+        const card = document.createElement('div');
+        card.className = 'character-card'; // CSSでデザインするためのクラス名
+
+        // カードの中身のHTMLを作成
+        card.innerHTML = `
+            <img src="${char.image}" alt="${char.name}">
+            <h3>${char.name}</h3>
+            <p>${char.description}</p>
+        `;
+
+        // 完成したカードを画面のグリッドに追加
+        collectionGrid.appendChild(card);
+    });
+}
